@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Kampány Kattintó</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="bg-layer"></div>
+
+    <!-- Szünet gomb a jobb felső sarokban -->
+    <button id="pauseBtn" class="pause-btn">Szünet</button>
+
+    <div id="startMenu">
+        <h1>Kampány Kattintó</h1>
+        <p>Válassz politikust a kezdéshez!</p>
+        <div class="char-buttons">
+            <button id="btn-magyar" onclick="startGame('Magyar Péter', 'magyar.png')">Magyar Péter</button>
+            <button id="btn-toroczkai" onclick="startGame('Toroczkai László', 'toroczkai.png')">Toroczkai László</button>
+            <button id="btn-gulyas" onclick="startGame('Gulyás Gergely', 'gulyas.png')">Gulyás Gergely</button>
+        </div>
+    </div>
+
+    <canvas id="gameCanvas"></canvas>
+    
+    <!-- Szerencsekerék modál (megjelenik rendszeresen) -->
+    <div id="wheelModal" class="hidden">
+        <div class="wheel-backdrop"></div>
+        <div class="wheel-container">
+            <img id="wheelImage" src="szerencsekerek.png" alt="Szerencsekerék">
+            <img id="wheelPointer" src="szerencsekerek_iranytu.png" alt="pointer">
+            <div class="wheel-controls">
+                <button id="spinBtn" class="spin-btn">Pörgessünk!</button>
+                <div id="wheelResult" class="wheel-result"></div>
+                <button id="closeWheel" class="close-wheel">X</button>
+            </div>
+        </div>
+    </div>
+    <!-- Hangfájlok (helyezze ezeket a fájlokat ugyanabba a mappába) -->
+    <audio id="spinSound" src="wheel_spinning.mp3" preload="auto"></audio>
+    <audio id="tickSound" src="tick.mp3" preload="auto"></audio>
+    <audio id="winSound" src="wheel_win.mp3" preload="auto"></audio>
+    <audio id="loseSound" src="wheel_lose.mp3" preload="auto"></audio>
+    <audio id="btnPressSound" src="button_press.mp3" preload="auto"></audio>
+    <audio id="btnHoverSound" src="button_hover.mp3" preload="auto"></audio>
+
+    <!-- Játék vége hangfájl -->
+    <audio id="gameOverSound" src="game_over.mp3" preload="auto"></audio>
+
+    <!-- Konfetti vászon (ünneplési effektusokhoz) -->
+    <canvas id="confettiCanvas"></canvas>
+
+    <!-- Szünet / Menü átfedés (overlay) -->
+    <div id="menuOverlay" class="hidden">
+        <div class="menu-backdrop"></div>
+        <div class="menu-box">
+            <div id="mainMenuButtons" class="menu-buttons">
+                <button id="btnRestart" class="menu-action">Újrakezdés</button>
+                <button id="btnContinue" class="menu-action">Folytasd</button>
+                <button id="btnSettings" class="menu-action">Beállítások</button>
+                <button id="btnExit" class="menu-action">Kilépés a főmenübe</button>
+            </div>
+
+            <div id="settingsPanel" class="menu-settings hidden">
+                <h3>Beállítások</h3>
+                <label>Hangeffektek hangereje: <span id="volLabel">100%</span></label>
+                <input id="volSlider" type="range" min="0" max="1" step="0.01" value="1">
+                <button id="btnSettingsBack" class="menu-action">Vissza</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Játék vége átfedés (Game Over) -->
+    <div id="gameOverOverlay" class="hidden">
+        <div class="menu-backdrop"></div>
+        <div class="gameover-box">
+            <h2 class="gameover-title">VESZTETTÉL!</h2>
+            <div class="gameover-buttons">
+                <button id="gameOverRestart" class="menu-action">Újrakezdés</button>
+                <button id="gameOverExit" class="menu-action">Kilépés a főmenübe</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
